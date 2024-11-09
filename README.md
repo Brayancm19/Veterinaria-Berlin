@@ -6,3 +6,5 @@
  -Nicole López Jiménez.<br>
  -Esteban Marín Astúa.<br>
  -Indira Picado Picado.<br>
+
+ <img src="Imagenes/logo.jpg" alt="Logo" class="logo">
