@@ -3,36 +3,36 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Proveedores</title>
+    <title>Listado de Proveedores</title>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
 </head>
 <body>
 
-    <nav class="navbar navbar-expand-lg navbar-light bg-light">
-        <a class="navbar-brand" href="#">Veterinaria Berlin</a>
-        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
-        </button>
-        <div class="collapse navbar-collapse" id="navbarNav">
-            <ul class="navbar-nav">
-                <li class="nav-item">
-                    <a class="nav-link" href="Totalventas.html">Total de Ventas</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="inventario.html">Inventario</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="personal.html">Personal</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="proveedores.html">Provedor</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="index.html">Salir</a>
-                </li>
-            </ul>
-        </div>
-    </nav>
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <a class="navbar-brand" href="admin.html">Veterinaria Berlin</a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarNav">
+        <ul class="navbar-nav">
+            <li class="nav-item">
+                <a class="nav-link" href="Totalventas.html">Total de Ventas</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="inventario.html">Inventario</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="personal.html">Personal</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="proveedores.html">Proveedores</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="index.html">Salir</a>
+            </li>
+        </ul>
+    </div>
+</nav>
 
 <div class="container mt-5">
     <h2 class="text-center">Agregar Proveedor</h2>
@@ -69,42 +69,15 @@
                 <th>Dirección</th>
             </tr>
         </thead>
-        <tbody id="proveedorTableBody">
+        <tbody id="proveedoresTableBody">
+
         </tbody>
     </table>
 </div>
 
 <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
-<script>
-    $(document).ready(function() {
-        $('#proveedorForm').on('submit', function(e) {
-            e.preventDefault();
+<script src="proveedores.js"></script>
 
-            $.ajax({
-                url: 'proveedores.php',
-                type: 'POST',
-                data: $(this).serialize(),
-                success: function(response) {
-                    alert('Proveedor agregado correctamente.');
-                    $('#proveedorForm')[0].reset();
-                    cargarProveedores();
-                }
-            });
-        });
-
-        function cargarProveedores() {
-            $.ajax({
-                url: 'proveedores.php',
-                type: 'GET',
-                success: function(response) {
-                    $('#proveedorTableBody').html(response);
-                }
-            });
-        }
-
-        cargarProveedores();
-    });
-</script>
 </body>
 </html>

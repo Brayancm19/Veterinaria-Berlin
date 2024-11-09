@@ -4,30 +4,45 @@ $username = "root";
 $password = "";
 $dbname = "veterinaria_berlin";
 
+// Crear conexión
 $conn = new mysqli($servername, $username, $password, $dbname);
 
+// Verificar conexión
 if ($conn->connect_error) {
     die("Conexión fallida: " . $conn->connect_error);
 }
 
+// Agregar producto
 if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['nombreProducto'])) {
     $nombreProducto = $_POST['nombreProducto'];
-    $descripcion = $_POST['descripcion'];
-    $cantidad = $_POST['cantidad'];
-    $precioUnitario = $_POST['precioUnitario'];
-    $idProveedor = $_POST['idProveedor'];
+    $descripcion = $_POST['descripcionProducto'];
+    $cantidad = $_POST['cantidadProducto'];
+    $precioUnitario = $_POST['precioProducto'];
+    $idProveedor = $_POST['proveedorSelect'];
 
     $sql = "INSERT INTO Inventario (nombre_producto, descripcion, cantidad, precio_unitario, id_proveedor) VALUES ('$nombreProducto', '$descripcion', '$cantidad', '$precioUnitario', '$idProveedor')";
-    $conn->query($sql);
+    if ($conn->query($sql) === TRUE) {
+        echo json_encode(["success" => true, "message" => "Producto agregado correctamente."]);
+    } else {
+        echo json_encode(["success" => false, "message" => "Error al agregar producto: " . $conn->error]);
+    }
+    exit;
 }
 
+// Eliminar producto
 if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['delete_id'])) {
     $delete_id = $_POST['delete_id'];
 
     $sql = "DELETE FROM Inventario WHERE id_producto = '$delete_id'";
-    $conn->query($sql);
+    if ($conn->query($sql) === TRUE) {
+        echo json_encode(["success" => true, "message" => "Producto eliminado correctamente."]);
+    } else {
+        echo json_encode(["success" => false, "message" => "Error al eliminar producto: " . $conn->error]);
+    }
+    exit;
 }
 
+// Editar producto
 if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['editIdProducto'])) {
     $idProducto = $_POST['editIdProducto'];
     $nombreProducto = $_POST['editNombreProducto'];
@@ -37,20 +52,30 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['editIdProducto'])) {
     $idProveedor = $_POST['editIdProveedor'];
 
     $sql = "UPDATE Inventario SET nombre_producto='$nombreProducto', descripcion='$descripcion', cantidad='$cantidad', precio_unitario='$precioUnitario', id_proveedor='$idProveedor' WHERE id_producto='$idProducto'";
-    $conn->query($sql);
+    if ($conn->query($sql) === TRUE) {
+        echo json_encode(["success" => true, "message" => "Producto actualizado correctamente."]);
+    } else {
+        echo json_encode(["success" => false, "message" => "Error al actualizar producto: " . $conn->error]);
+    }
+    exit;
 }
 
+// Obtener producto para editar
 if ($_SERVER['REQUEST_METHOD'] == 'GET' && isset($_GET['edit_id'])) {
     $edit_id = $_GET['edit_id'];
 
     $sql = "SELECT * FROM Inventario WHERE id_producto = '$edit_id'";
     $result = $conn->query($sql);
-    $producto = $result->fetch_assoc();
-
-    echo json_encode($producto);
+    if ($result->num_rows > 0) {
+        $producto = $result->fetch_assoc();
+        echo json_encode($producto);
+    } else {
+        echo json_encode(["success" => false, "message" => "Producto no encontrado."]);
+    }
     exit;
 }
 
+// Obtener productos con proveedores
 $sql = "SELECT i.*, p.nombre AS nombre_proveedor FROM Inventario i LEFT JOIN Proveedores p ON i.id_proveedor = p.id_proveedor";
 $result = $conn->query($sql);
 

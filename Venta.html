@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ventas</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+</head>
+<body>
+
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <a class="navbar-brand" href="empleados.html">Veterinaria Berlin</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav">
+                <li class="nav-item">
+                    <a class="nav-link" href="Venta.html">Venta</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="Citas.html">Citas</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="Clientes.html">Clientes</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="index.html">Salir</a>
+                </li>
+            </ul>
+        </div>
+    </nav>
+
+<div class="container mt-5">
+    <h2 class="text-center">Gestión de Ventas</h2>
+    
+
+    <div class="mt-4">
+        <h3>Productos Disponibles</h3>
+        <table class="table table-bordered">
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Nombre del Producto</th>
+                    <th>Descripción</th>
+                    <th>Precio Unitario</th>
+                    <th>Cantidad Disponible</th>
+                    <th>Cantidad a Comprar</th>
+                    <th>Acciones</th>
+                </tr>
+            </thead>
+            <tbody id="productosTableBody">
+
+            </tbody>
+        </table>
+    </div>
+    
+    <!-- Carrito de compras -->
+    <div class="mt-4">
+        <h3>Carrito de Compras</h3>
+
+        <div class="form-group">
+            <label for="clienteSelect">Seleccionar Cliente:</label>
+            <select class="form-control" id="clienteSelect" name="clienteSelect" required>
+
+            </select>
+        </div>
+        <table class="table table-bordered">
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Nombre del Producto</th>
+                    <th>Cantidad</th>
+                    <th>Precio Unitario</th>
+                    <th>Total</th>
+                    <th>Acciones</th>
+                </tr>
+            </thead>
+            <tbody id="carritoTableBody">
+
+            </tbody>
+        </table>
+        <div class="text-right">
+            <h4>Total de la Venta: $<span id="totalVenta">0.00</span></h4>
+        </div>
+    </div>
+
+    <button id="completarVentaBtn" class="btn btn-primary mt-3">Completar Venta</button>
+</div>
+
+<script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+<script src="carrito.js"></script>
+
+<script>
+    $(document).ready(function() {
+        // Función para cargar clientes
+        function cargarClientes() {
+            $.ajax({
+                url: 'obtener_clientes.php',
+                type: 'GET',
+                dataType: 'json',  // Especificar el tipo de datos esperados como JSON
+                success: function(clientes) {
+                    console.log("Respuesta recibida: ", clientes);  // Depuración
+
+                    try {
+                        clientes.forEach(cliente => {
+                            $('#clienteSelect').append(`
+                                <option value="${cliente.id_cliente}">${cliente.nombre} ${cliente.apellido}</option>
+                            `);
+                        });
+                    } catch (e) {
+                        console.error("Error al procesar los clientes: ", e);
+                    }
+                },
+                error: function(xhr, status, error) {
+                    console.error("Error en la solicitud AJAX: ", status, error);
+                }
+            });
+        }
+
+        // Inicializar la carga de clientes y productos
+        cargarClientes();
+    });
+</script>
+
+</body>
+</html>

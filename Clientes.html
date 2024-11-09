@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Registro de Clientes</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+</head>
+<body>
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <a class="navbar-brand" href="empleados.html">Veterinaria Berlin</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav">
+                <li class="nav-item">
+                    <a class="nav-link" href="Venta.html">Venta</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="Citas.html">Citas</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="Clientes.html">Clientes</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="index.html">Salir</a>
+                </li>
+            </ul>
+        </div>
+    </nav>
+
+    
+<div class="container mt-5">
+    <h2 class="text-center">Registro de Clientes</h2>
+    <form id="clienteForm" class="mb-4">
+        <div class="form-group">
+            <label for="nombreCliente">Nombre:</label>
+            <input type="text" class="form-control" id="nombreCliente" name="nombreCliente" required>
+        </div>
+        <div class="form-group">
+            <label for="apellidoCliente">Apellido:</label>
+            <input type="text" class="form-control" id="apellidoCliente" name="apellidoCliente" required>
+        </div>
+        <div class="form-group">
+            <label for="direccionCliente">Dirección:</label>
+            <input type="text" class="form-control" id="direccionCliente" name="direccionCliente" required>
+        </div>
+        <div class="form-group">
+            <label for="telefonoCliente">Teléfono:</label>
+            <input type="text" class="form-control" id="telefonoCliente" name="telefonoCliente" required>
+        </div>
+        <div class="form-group">
+            <label for="emailCliente">Email:</label>
+            <input type="email" class="form-control" id="emailCliente" name="emailCliente" required>
+        </div>
+        <button type="submit" class="btn btn-primary">Registrar Cliente</button>
+    </form>
+</div>
+
+<script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+<script>
+    $(document).ready(function() {
+        $('#clienteForm').on('submit', function(e) {
+            e.preventDefault();
+
+            $.ajax({
+                url: 'cliente_contacto.php',
+                type: 'POST',
+                data: $(this).serialize(),
+                success: function(response) {
+                    if (response.success) {
+                        alert('Cliente registrado con éxito');
+                        $('#clienteForm')[0].reset();
+                    } else {
+                        alert('Error al registrar cliente: ' + response.error);
+                    }
+                }
+            });
+        });
+    });
+</script>
+
+</body>
+</html>
