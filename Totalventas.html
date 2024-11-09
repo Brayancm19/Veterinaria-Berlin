@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Total de Ventas</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+</head>
+<body>
+
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <a class="navbar-brand" href="admin.html">Veterinaria Berlin</a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarNav">
+        <ul class="navbar-nav">
+            <li class="nav-item">
+                <a class="nav-link" href="Totalventas.html">Total de Ventas</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="inventario.html">Inventario</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="personal.html">Personal</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="proveedores.html">Proveedores</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="index.html">Salir</a>
+            </li>
+        </ul>
+    </div>
+</nav>
+
+<div class="container mt-5">
+    <h2 class="text-center">Total de Ventas</h2>
+    
+    <!-- Resumen del Total Vendido -->
+    <div class="mt-4">
+        <h3>Total Vendido a la Fecha: <span id="totalVendido"></span></h3>
+    </div>
+
+    <!-- Tabla de Detalle de Ventas -->
+    <div class="mt-4">
+        <h3>Detalle de Ventas</h3>
+        <table class="table table-bordered">
+            <thead>
+                <tr>
+                    <th>ID Venta</th>
+                    <th>Cliente</th>
+                    <th>Producto</th>
+                    <th>Cantidad</th>
+                    <th>Total</th>
+                    <th>Fecha de Venta</th>
+                </tr>
+            </thead>
+            <tbody id="ventasTableBody">
+                <!-- Aquí se cargarán las ventas -->
+            </tbody>
+        </table>
+    </div>
+</div>
+
+<script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+<script src="totalventas.js"></script>
+
+</body>
+</html>
