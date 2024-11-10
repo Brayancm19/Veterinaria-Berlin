@@ -137,13 +137,14 @@ CREATE TABLE `medio_contacto` (
 -- Estructura de tabla para la tabla `pagos`
 --
 
-CREATE TABLE `pagos` (
-  `id_pago` int(11) NOT NULL,
-  `id_venta` int(11) DEFAULT NULL,
-  `metodo_pago` varchar(50) DEFAULT NULL,
-  `fecha_pago` date DEFAULT NULL,
-  `monto` decimal(10,2) DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+CREATE TABLE Pagos (
+    id_pago INT AUTO_INCREMENT PRIMARY KEY,
+    id_venta INT,
+    metodo_pago VARCHAR(50),
+    fecha_pago DATETIME,
+    monto DECIMAL(10, 2),
+    FOREIGN KEY (id_venta) REFERENCES Ventas(id_venta) ON DELETE CASCADE  
+);
 
 -- --------------------------------------------------------
 
