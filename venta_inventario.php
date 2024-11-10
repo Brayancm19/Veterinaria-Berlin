@@ -30,7 +30,7 @@ if ($result->num_rows > 0) {
                 <input type='number' min='1' max='{$row['cantidad']}' value='1' class='cantidad-producto' data-id='{$row['id_producto']}' step='1' title='Cantidad a comprar' placeholder='Cantidad' />
             </td>
             <td>
-                <button class='btn btn-primary btn-sm agregar-carrito' data-id='{$row['id_producto']}' data-nombre='{$row['nombre_producto']}' data-descripcion='{$row['descripcion']}' data-precio='{$row['precio_unitario']}' data-cantidad='{$row['cantidad']}'>Agregar al Carrito</button>
+                <button class='btn btn-primary btn-sm agregar-carrito' data-id='{$row['id_producto']}' data-nombre='{$row['nombre_producto']}' data-descripcion='{$row['descripcion']}' data-precio='{$row['precio_unitario']}' data-cantidad='{$row['cantidad']}'>Agregar</button>
             </td>
         </tr>
         ";

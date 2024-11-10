@@ -45,6 +45,16 @@ try {
             throw new Exception("Error al registrar la venta: " . $conn->error);
         }
 
+        // Obtener el id_venta generado
+        $idVenta = $conn->insert_id;
+
+        // Registrar el pago
+        $metodoPago = "Tarjeta"; // Puedes ajustar esto según lo que se reciba en la solicitud
+        $sqlPago = "INSERT INTO Pagos (id_venta, metodo_pago, fecha_pago, monto) VALUES ('$idVenta', '$metodoPago', NOW(), '$totalProducto')";
+        if (!$conn->query($sqlPago)) {
+            throw new Exception("Error al registrar el pago: " . $conn->error);
+        }
+
         // Actualizar inventario
         $sqlActualizarInventario = "UPDATE Inventario SET cantidad = cantidad - '$cantidad' WHERE id_producto = '$idProducto'";
         if (!$conn->query($sqlActualizarInventario)) {
@@ -59,7 +69,7 @@ try {
 } catch (Exception $e) {
     // Deshacer la transacción en caso de error
     $conn->rollback();
-    $response["error"] = $e->getMessage();
+    $response["error"] = "Error: " . $e->getMessage();
 
     // Registrar el error en un archivo de log
     error_log($e->getMessage(), 3, "errores.log");

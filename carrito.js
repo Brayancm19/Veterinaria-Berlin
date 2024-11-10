@@ -8,12 +8,12 @@ $(document).ready(function() {
             url: 'venta_inventario.php',
             type: 'GET',
             success: function(response) {
-                $('#productosTableBody').html(response);
+                $('#productosTableBody').html(response); // Cargar productos en la tabla de Productos Disponibles
             }
         });
     }
 
-    // Función para actualizar el carrito
+    // Función para actualizar el carrito en el modal
     function actualizarCarrito() {
         $('#carritoTableBody').empty();
         totalVenta = 0;
@@ -34,7 +34,7 @@ $(document).ready(function() {
             `);
         });
 
-        $('#totalVenta').text(totalVenta.toFixed(2));
+        $('#totalVenta').text(totalVenta.toFixed(2)); // Actualizar el total en el modal
     }
 
     // Evento para agregar productos al carrito
@@ -68,7 +68,7 @@ $(document).ready(function() {
             }
         }
 
-        actualizarCarrito();
+        actualizarCarrito(); // Actualizar el carrito en el modal
     });
 
     // Evento para eliminar productos del carrito
@@ -78,9 +78,10 @@ $(document).ready(function() {
         actualizarCarrito();
     });
 
-    // Evento para completar la venta
+    // Evento para completar la venta desde el modal
     $('#completarVentaBtn').on('click', function() {
         let idCliente = $('#clienteSelect').val();  
+        let metodoPago = $('#metodoPagoSelect').val();  // Obtener el método de pago seleccionado
 
         if (!idCliente) {
             alert('Seleccione un cliente');
@@ -95,21 +96,26 @@ $(document).ready(function() {
         $.ajax({
             url: 'venta.php',
             type: 'POST',
-            data: { carrito: carrito, id_cliente: idCliente },
+            data: { 
+                carrito: carrito, 
+                id_cliente: idCliente,
+                metodo_pago: metodoPago,  // Enviar el método de pago al servidor
+                total_venta: totalVenta  // También puedes enviar el total de la venta si lo necesitas
+            },
             success: function(response) {
                 console.log(response); 
                 if (response.success) {
                     alert('Venta completada con éxito');
                     carrito = [];
-                    actualizarCarrito();
-                    cargarProductos();
+                    actualizarCarrito(); // Limpiar y actualizar el carrito en el modal
+                    cargarProductos();   // Recargar productos disponibles en inventario
+                    $('#carritoModal').modal('hide'); // Cerrar el modal al completar la venta
                 } else {
                     alert('Error al completar la venta: ' + response.error);
                 }
             }
         });
     });
-
 
     cargarProductos();
 });
