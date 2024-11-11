@@ -1,5 +1,5 @@
 $(document).ready(function() {
-    // Función para cargar proveedores
+
     function cargarProveedores() {
         $.ajax({
             url: 'proveedores.php',
@@ -23,7 +23,7 @@ $(document).ready(function() {
         });
     }
 
-    // Función para cargar productos del inventario
+
     function cargarInventario() {
         $.ajax({
             url: 'inventario.php',
@@ -31,7 +31,7 @@ $(document).ready(function() {
             success: function(response) {
                 $('#inventarioTableBody').html(response);
 
-                // Activar eventos de editar y eliminar
+
                 $('.edit-btn').on('click', function() {
                     const id = $(this).data('id');
                     cargarProducto(id);
@@ -48,7 +48,7 @@ $(document).ready(function() {
         });
     }
 
-    // Función para cargar un producto en el formulario de edición
+
     function cargarProducto(id) {
         $.ajax({
             url: 'inventario.php',
@@ -70,7 +70,7 @@ $(document).ready(function() {
         });
     }
 
-    // Función para eliminar un producto
+
     function eliminarProducto(id) {
         if (confirm('¿Estás seguro de que deseas eliminar este producto?')) {
             $.ajax({
@@ -93,7 +93,7 @@ $(document).ready(function() {
         }
     }
 
-    // Evento para agregar productos al inventario
+
     $('#productoForm').on('submit', function(e) {
         e.preventDefault();
 
@@ -117,7 +117,7 @@ $(document).ready(function() {
         });
     });
 
-    // Evento para editar productos
+
     $('#editProductoForm').on('submit', function(e) {
         e.preventDefault();
 
@@ -141,7 +141,7 @@ $(document).ready(function() {
         });
     });
 
-    // Inicializar la carga de proveedores y productos
+
     cargarProveedores();
     cargarInventario();
 });

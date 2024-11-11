@@ -36,7 +36,7 @@
 
     <div class="d-flex justify-content-between align-items-center mt-4">
         <h3>Productos Disponibles</h3>
-        <!-- Botón para abrir el modal del carrito de compras -->
+
         <button id="verCarritoBtn" class="btn btn-primary" data-toggle="modal" data-target="#carritoModal">
             Compra
         </button>
@@ -55,13 +55,13 @@
             </tr>
         </thead>
         <tbody id="productosTableBody">
-            <!-- Contenido dinámico de productos -->
+
         </tbody>
     </table>
 </div>
 
 
-<!-- Modal del Carrito de Compras -->
+
 <div class="modal fade" id="carritoModal" tabindex="-1" role="dialog" aria-labelledby="carritoModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-lg" role="document">
         <div class="modal-content">
@@ -75,18 +75,18 @@
                 <div class="form-group">
                     <label for="clienteSelect">Seleccionar Cliente:</label>
                     <select class="form-control" id="clienteSelect" name="clienteSelect" required>
-                        <!-- Clientes cargados dinámicamente -->
+
                     </select>
                 </div>
                 
-                <!-- Selección de Método de Pago -->
+
                 <div class="form-group">
                     <label for="metodoPagoSelect">Seleccionar Método de Pago:</label>
                     <select class="form-control" id="metodoPagoSelect" name="metodoPagoSelect" required>
                         <option value="Efectivo">Efectivo</option>
                         <option value="Tarjeta">Tarjeta</option>
                         <option value="Transferencia">Transferencia</option>
-                        <!-- Agregar más métodos de pago si es necesario -->
+
                     </select>
                 </div>
 
@@ -102,7 +102,7 @@
                         </tr>
                     </thead>
                     <tbody id="carritoTableBody">
-                        <!-- Contenido dinámico del carrito -->
+
                     </tbody>
                 </table>
                 <div class="text-right">
@@ -122,7 +122,7 @@
 
 <script>
     $(document).ready(function() {
-        // Función para cargar clientes
+
         function cargarClientes() {
             $.ajax({
                 url: 'obtener_clientes.php',
@@ -146,7 +146,7 @@
             });
         }
 
-        // Inicializar la carga de clientes y productos
+
         cargarClientes();
     });
 </script>

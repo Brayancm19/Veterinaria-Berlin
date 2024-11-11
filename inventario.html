@@ -37,7 +37,6 @@
 <div class="container mt-5">
     <h2 class="text-center">Gestión de Inventario</h2>
     
-    <!-- Formulario para Agregar Productos -->
     <div class="mt-4">
         <h3>Agregar Producto</h3>
         <form id="productoForm">
@@ -60,14 +59,14 @@
             <div class="form-group">
                 <label for="proveedorSelect">Proveedor:</label>
                 <select class="form-control" id="proveedorSelect" name="proveedorSelect" required>
-                    <!-- Opciones de proveedores se cargarán aquí -->
+
                 </select>
             </div>
             <button type="submit" class="btn btn-primary">Agregar Producto</button>
         </form>
     </div>
 
-    <!-- Tabla de Productos en el Inventario -->
+
     <div class="mt-4">
         <h3>Productos en Inventario</h3>
         <table class="table table-bordered">
@@ -83,13 +82,12 @@
                 </tr>
             </thead>
             <tbody id="inventarioTableBody">
-                <!-- Aquí se cargarán los productos del inventario -->
+
             </tbody>
         </table>
     </div>
 </div>
 
-<!-- Modal para Editar Producto -->
 <div class="modal fade" id="editModal" tabindex="-1" aria-labelledby="editModalLabel" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">
@@ -121,7 +119,7 @@
                     <div class="form-group">
                         <label for="editIdProveedor">Proveedor:</label>
                         <select class="form-control" id="editIdProveedor" name="editIdProveedor" required>
-                            <!-- Opciones de proveedores se cargarán aquí -->
+
                         </select>
                     </div>
                     <button type="submit" class="btn btn-primary">Guardar Cambios</button>

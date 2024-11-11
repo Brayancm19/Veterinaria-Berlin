@@ -2,18 +2,18 @@ $(document).ready(function() {
     let carrito = [];
     let totalVenta = 0;
 
-    // Función para cargar productos desde el inventario
+   
     function cargarProductos() {
         $.ajax({
             url: 'venta_inventario.php',
             type: 'GET',
             success: function(response) {
-                $('#productosTableBody').html(response); // Cargar productos en la tabla de Productos Disponibles
+                $('#productosTableBody').html(response); 
             }
         });
     }
 
-    // Función para actualizar el carrito en el modal
+ 
     function actualizarCarrito() {
         $('#carritoTableBody').empty();
         totalVenta = 0;
@@ -34,24 +34,24 @@ $(document).ready(function() {
             `);
         });
 
-        $('#totalVenta').text(totalVenta.toFixed(2)); // Actualizar el total en el modal
+        $('#totalVenta').text(totalVenta.toFixed(2)); 
     }
 
-    // Evento para agregar productos al carrito
+  
     $(document).on('click', '.agregar-carrito', function() {
         let idProducto = $(this).data('id');
         let nombreProducto = $(this).data('nombre');
         let descripcion = $(this).data('descripcion');
         let precioUnitario = parseFloat($(this).data('precio'));
         let cantidadDisponible = parseInt($(this).data('cantidad'));
-        let cantidad = parseInt($(`.cantidad-producto[data-id='${idProducto}']`).val());  // Obtener la cantidad ingresada
+        let cantidad = parseInt($(`.cantidad-producto[data-id='${idProducto}']`).val()); 
 
         if (cantidad <= 0 || cantidad > cantidadDisponible) {
             alert('Cantidad no válida o excede la cantidad disponible en el inventario');
             return;
         }
 
-        // Verificar si el producto ya está en el carrito
+
         let productoEnCarrito = carrito.find(producto => producto.id_producto === idProducto);
 
         if (productoEnCarrito) {
@@ -68,20 +68,20 @@ $(document).ready(function() {
             }
         }
 
-        actualizarCarrito(); // Actualizar el carrito en el modal
+        actualizarCarrito(); 
     });
 
-    // Evento para eliminar productos del carrito
+   
     $(document).on('click', '.eliminar-producto', function() {
         let index = $(this).data('index');
         carrito.splice(index, 1);
         actualizarCarrito();
     });
 
-    // Evento para completar la venta desde el modal
+
     $('#completarVentaBtn').on('click', function() {
         let idCliente = $('#clienteSelect').val();  
-        let metodoPago = $('#metodoPagoSelect').val();  // Obtener el método de pago seleccionado
+        let metodoPago = $('#metodoPagoSelect').val();  
 
         if (!idCliente) {
             alert('Seleccione un cliente');
@@ -99,17 +99,17 @@ $(document).ready(function() {
             data: { 
                 carrito: carrito, 
                 id_cliente: idCliente,
-                metodo_pago: metodoPago,  // Enviar el método de pago al servidor
-                total_venta: totalVenta  // También puedes enviar el total de la venta si lo necesitas
+                metodo_pago: metodoPago,  
+                total_venta: totalVenta  
             },
             success: function(response) {
                 console.log(response); 
                 if (response.success) {
                     alert('Venta completada con éxito');
                     carrito = [];
-                    actualizarCarrito(); // Limpiar y actualizar el carrito en el modal
-                    cargarProductos();   // Recargar productos disponibles en inventario
-                    $('#carritoModal').modal('hide'); // Cerrar el modal al completar la venta
+                    actualizarCarrito(); 
+                    cargarProductos();   
+                    $('#carritoModal').modal('hide'); 
                 } else {
                     alert('Error al completar la venta: ' + response.error);
                 }
