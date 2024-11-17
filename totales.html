@@ -1,13 +1,19 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Total de Ventas</title>
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <title>Totales de Ventas y Citas</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <style>
+        .total-general {
+            font-weight: bold;
+            font-size: 1.5em;
+        }
+    </style>
 </head>
 <body>
-
+    
     <nav class="navbar navbar-expand-lg navbar-light bg-light">
         <a class="navbar-brand" href="admin.html">Veterinaria Berlin</a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
@@ -19,7 +25,7 @@
                     <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Totales</a>
                     <div class="dropdown-menu">
                       <a class="dropdown-item" href="totales.html">Totales</a>
-                      <a class="dropdown-item" href="Totalventas.html">Total en Ventas</a>
+                      <a class="dropdown-item" href="totalventas.html">Total en Ventas</a>
                       <a class="dropdown-item" href="totalcitas.html">Total en Citas</a>
                     </div>
                 <li class="nav-item">
@@ -38,39 +44,38 @@
         </div>
     </nav>
     
+    <div class="container mt-5">
+        <h2 class="text-center">Totales de Ventas y Citas</h2>
 
-<div class="container mt-5">
-    <h2 class="text-center">Total de Ventas</h2>
-    
-
-    <div class="mt-4">
-        <h3>Total Vendido a la Fecha: ₡<span id="totalVendido"></span></h3>
+        <div class="mt-4">
+            <table class="table table-bordered">
+                <thead>
+                    <tr>
+                        <th>Descripción</th>
+                        <th>Monto</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Total de Ventas</td>
+                        <td>₡<span id="totalVentas"></span></td>
+                    </tr>
+                    <tr>
+                        <td>Total de Citas</td>
+                        <td>₡<span id="totalCitas"></span></td>
+                    </tr>
+                    <tr>
+                        <td class="total-general">Total General</td>
+                        <td class="total-general">₡<span id="totalGeneral"></span></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
     </div>
 
-    <hr>
-    <div class="mt-4">
-        <h3>Detalle de Ventas</h3>
-        <table class="table table-bordered">
-            <thead>
-                <tr>
-                    <th>ID Venta</th>
-                    <th>Cliente</th>
-                    <th>Producto</th>
-                    <th>Cantidad</th>
-                    <th>Total</th>
-                    <th>Fecha de Venta</th>
-                </tr>
-            </thead>
-            <tbody id="ventasTableBody">
-
-            </tbody>
-        </table>
-    </div>
-</div>
-
-<script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
-<script src="totalventas.js"></script>
+    <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.2/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="totales.js"></script>
 
 </body>
 </html>
