@@ -3,9 +3,9 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 04-11-2024 a las 00:50:50
+-- Tiempo de generación: 17-11-2024 a las 20:35:55
 -- Versión del servidor: 10.4.32-MariaDB
--- Versión de PHP: 8.0.30
+-- Versión de PHP: 8.2.12
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -37,6 +37,15 @@ CREATE TABLE `citas` (
   `estado` varchar(50) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
+--
+-- Volcado de datos para la tabla `citas`
+--
+
+INSERT INTO `citas` (`id_cita`, `id_cliente`, `id_mascota`, `id_servicio`, `id_veterinario`, `fecha_hora`, `estado`) VALUES
+(9, 2, 3, 1, 2, '2024-11-17 13:28:00', 'Programada'),
+(10, 2, 3, 9, 1, '2024-11-17 13:33:00', 'Programada'),
+(11, 1, 4, 9, 2, '2024-11-17 13:34:00', 'Programada');
+
 -- --------------------------------------------------------
 
 --
@@ -50,6 +59,14 @@ CREATE TABLE `clientes` (
   `direccion` varchar(255) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
+--
+-- Volcado de datos para la tabla `clientes`
+--
+
+INSERT INTO `clientes` (`id_cliente`, `nombre`, `apellido`, `direccion`) VALUES
+(1, 'Brayan', 'Chacón Molina', 'Tobosi, Cartago'),
+(2, 'Emma', 'Chacón  Thames', 'Costa Rica');
+
 -- --------------------------------------------------------
 
 --
@@ -61,31 +78,15 @@ CREATE TABLE `cliente_contacto` (
   `id_contacto` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
--- --------------------------------------------------------
-
 --
--- Estructura de tabla para la tabla `especialidades`
+-- Volcado de datos para la tabla `cliente_contacto`
 --
 
-CREATE TABLE `especialidades` (
-  `id_especialidad` int(11) NOT NULL,
-  `nombre_especialidad` varchar(255) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-
--- --------------------------------------------------------
-
---
--- Estructura de tabla para la tabla `historial_medico`
---
-
-CREATE TABLE `historial_medico` (
-  `id_historial` int(11) NOT NULL,
-  `id_mascota` int(11) DEFAULT NULL,
-  `id_servicio` int(11) DEFAULT NULL,
-  `fecha` date DEFAULT NULL,
-  `observaciones` text DEFAULT NULL,
-  `recetas` text DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+INSERT INTO `cliente_contacto` (`id_cliente`, `id_contacto`) VALUES
+(1, 3),
+(1, 4),
+(2, 5),
+(2, 6);
 
 -- --------------------------------------------------------
 
@@ -101,6 +102,13 @@ CREATE TABLE `inventario` (
   `precio_unitario` decimal(10,2) DEFAULT NULL,
   `id_proveedor` int(11) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Volcado de datos para la tabla `inventario`
+--
+
+INSERT INTO `inventario` (`id_producto`, `nombre_producto`, `descripcion`, `cantidad`, `precio_unitario`, `id_proveedor`) VALUES
+(1, 'HYPOALLERGENIC TREATS MARCA: HILLS', 'Deliciosos premios que sirven como complemento para perros con: Reacciones adversas al alimento (alergias o intolerancias alimentarias) Trastornos gastrointestinales (excepto aquellos que requieran un alimento bajo en grasa o alto en fibra) Enfermedades cutáneas 340G', 19, 12900.00, 1);
 
 -- --------------------------------------------------------
 
@@ -119,6 +127,14 @@ CREATE TABLE `mascotas` (
   `historial_medico` text DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
+--
+-- Volcado de datos para la tabla `mascotas`
+--
+
+INSERT INTO `mascotas` (`id_mascota`, `id_cliente`, `nombre_mascota`, `especie`, `raza`, `edad`, `sexo`, `historial_medico`) VALUES
+(3, 2, 'Denver', 'Perro', 'Salchicha', 1, 'Macho', NULL),
+(4, 1, 'Coki', 'Perro', 'Perro', 5, 'Macho', NULL);
+
 -- --------------------------------------------------------
 
 --
@@ -131,20 +147,38 @@ CREATE TABLE `medio_contacto` (
   `valor_contacto` varchar(255) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
+--
+-- Volcado de datos para la tabla `medio_contacto`
+--
+
+INSERT INTO `medio_contacto` (`id_contacto`, `tipo_contacto`, `valor_contacto`) VALUES
+(1, 'Telefono', '0800-012-2221'),
+(2, 'Email', 'Hillspet@hillspet.com'),
+(3, 'Telefono', '84292659'),
+(4, 'Email', 'bchacon959@gmail.com'),
+(5, 'Telefono', '8888888'),
+(6, 'Email', 'emma@gmail.com');
+
 -- --------------------------------------------------------
 
 --
 -- Estructura de tabla para la tabla `pagos`
 --
 
-CREATE TABLE Pagos (
-    id_pago INT AUTO_INCREMENT PRIMARY KEY,
-    id_venta INT,
-    metodo_pago VARCHAR(50),
-    fecha_pago DATETIME,
-    monto DECIMAL(10, 2),
-    FOREIGN KEY (id_venta) REFERENCES Ventas(id_venta) ON DELETE CASCADE  
-);
+CREATE TABLE `pagos` (
+  `id_pago` int(11) NOT NULL,
+  `id_venta` int(11) DEFAULT NULL,
+  `metodo_pago` varchar(50) DEFAULT NULL,
+  `fecha_pago` datetime DEFAULT NULL,
+  `monto` decimal(10,2) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Volcado de datos para la tabla `pagos`
+--
+
+INSERT INTO `pagos` (`id_pago`, `id_venta`, `metodo_pago`, `fecha_pago`, `monto`) VALUES
+(10, 14, 'Tarjeta', '2024-11-17 13:29:29', 12900.00);
 
 -- --------------------------------------------------------
 
@@ -158,6 +192,13 @@ CREATE TABLE `proveedores` (
   `direccion` varchar(255) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
+--
+-- Volcado de datos para la tabla `proveedores`
+--
+
+INSERT INTO `proveedores` (`id_proveedor`, `nombre`, `direccion`) VALUES
+(1, 'Hillspet', 'Costa Rica');
+
 -- --------------------------------------------------------
 
 --
@@ -168,6 +209,14 @@ CREATE TABLE `proveedor_contacto` (
   `id_proveedor` int(11) NOT NULL,
   `id_contacto` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Volcado de datos para la tabla `proveedor_contacto`
+--
+
+INSERT INTO `proveedor_contacto` (`id_proveedor`, `id_contacto`) VALUES
+(1, 1),
+(1, 2);
 
 -- --------------------------------------------------------
 
@@ -182,6 +231,21 @@ CREATE TABLE `servicios` (
   `precio` decimal(10,2) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
+--
+-- Volcado de datos para la tabla `servicios`
+--
+
+INSERT INTO `servicios` (`id_servicio`, `nombre_servicio`, `descripcion`, `precio`) VALUES
+(1, 'Consulta General', 'Consulta médica general para revisar la salud del animal.', 50000.00),
+(2, 'Vacunación', 'Aplicación de vacunas necesarias para prevenir enfermedades.', 30000.00),
+(3, 'Desparasitación', 'Tratamiento para eliminar parásitos internos y externos.', 20000.00),
+(4, 'Cirugía', 'Procedimientos quirúrgicos necesarios para tratar diversas condiciones.', 200000.00),
+(5, 'Limpieza Dental', 'Limpieza profesional de los dientes del animal.', 30000.00),
+(6, 'Radiografía', 'Toma de radiografías para diagnóstico de problemas internos.', 60000.00),
+(7, 'Ecografía', 'Realización de ecografías para evaluación de órganos y tejidos.', 100000.00),
+(8, 'Hospitalización', 'Cuidado y monitoreo del animal durante la hospitalización.', 150000.00),
+(9, 'Peluquería', 'Servicio de peluquería y corte de pelo para el animal.', 10000.00);
+
 -- --------------------------------------------------------
 
 --
@@ -192,10 +256,18 @@ CREATE TABLE `ventas` (
   `id_venta` int(11) NOT NULL,
   `id_cliente` int(11) DEFAULT NULL,
   `id_producto` int(11) DEFAULT NULL,
+  `tipo` enum('producto','servicio') DEFAULT NULL,
   `cantidad` int(11) DEFAULT NULL,
   `total` decimal(10,2) DEFAULT NULL,
   `fecha_venta` datetime DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Volcado de datos para la tabla `ventas`
+--
+
+INSERT INTO `ventas` (`id_venta`, `id_cliente`, `id_producto`, `tipo`, `cantidad`, `total`, `fecha_venta`) VALUES
+(14, 1, 1, NULL, 1, 12900.00, '2024-11-17 13:29:29');
 
 -- --------------------------------------------------------
 
@@ -210,6 +282,14 @@ CREATE TABLE `veterinarios` (
   `telefono` varchar(20) DEFAULT NULL,
   `email` varchar(255) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Volcado de datos para la tabla `veterinarios`
+--
+
+INSERT INTO `veterinarios` (`id_veterinario`, `nombre`, `id_especialidad`, `telefono`, `email`) VALUES
+(1, 'Dr. Juan Pérez', 1, '123-456-7890', 'juan.perez@veterinaria.com'),
+(2, 'Dra. María González', 2, '234-567-8901', 'maria.gonzalez@veterinaria.com');
 
 --
 -- Índices para tablas volcadas
@@ -237,20 +317,6 @@ ALTER TABLE `clientes`
 ALTER TABLE `cliente_contacto`
   ADD PRIMARY KEY (`id_cliente`,`id_contacto`),
   ADD KEY `id_contacto` (`id_contacto`);
-
---
--- Indices de la tabla `especialidades`
---
-ALTER TABLE `especialidades`
-  ADD PRIMARY KEY (`id_especialidad`);
-
---
--- Indices de la tabla `historial_medico`
---
-ALTER TABLE `historial_medico`
-  ADD PRIMARY KEY (`id_historial`),
-  ADD KEY `id_mascota` (`id_mascota`),
-  ADD KEY `id_servicio` (`id_servicio`);
 
 --
 -- Indices de la tabla `inventario`
@@ -321,73 +387,61 @@ ALTER TABLE `veterinarios`
 -- AUTO_INCREMENT de la tabla `citas`
 --
 ALTER TABLE `citas`
-  MODIFY `id_cita` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id_cita` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
 
 --
 -- AUTO_INCREMENT de la tabla `clientes`
 --
 ALTER TABLE `clientes`
-  MODIFY `id_cliente` int(11) NOT NULL AUTO_INCREMENT;
-
---
--- AUTO_INCREMENT de la tabla `especialidades`
---
-ALTER TABLE `especialidades`
-  MODIFY `id_especialidad` int(11) NOT NULL AUTO_INCREMENT;
-
---
--- AUTO_INCREMENT de la tabla `historial_medico`
---
-ALTER TABLE `historial_medico`
-  MODIFY `id_historial` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id_cliente` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT de la tabla `inventario`
 --
 ALTER TABLE `inventario`
-  MODIFY `id_producto` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id_producto` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT de la tabla `mascotas`
 --
 ALTER TABLE `mascotas`
-  MODIFY `id_mascota` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id_mascota` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT de la tabla `medio_contacto`
 --
 ALTER TABLE `medio_contacto`
-  MODIFY `id_contacto` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id_contacto` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
 -- AUTO_INCREMENT de la tabla `pagos`
 --
 ALTER TABLE `pagos`
-  MODIFY `id_pago` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id_pago` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
 
 --
 -- AUTO_INCREMENT de la tabla `proveedores`
 --
 ALTER TABLE `proveedores`
-  MODIFY `id_proveedor` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id_proveedor` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT de la tabla `servicios`
 --
 ALTER TABLE `servicios`
-  MODIFY `id_servicio` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id_servicio` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
 
 --
 -- AUTO_INCREMENT de la tabla `ventas`
 --
 ALTER TABLE `ventas`
-  MODIFY `id_venta` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id_venta` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
 
 --
 -- AUTO_INCREMENT de la tabla `veterinarios`
 --
 ALTER TABLE `veterinarios`
-  MODIFY `id_veterinario` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id_veterinario` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- Restricciones para tablas volcadas
@@ -410,49 +464,16 @@ ALTER TABLE `cliente_contacto`
   ADD CONSTRAINT `cliente_contacto_ibfk_2` FOREIGN KEY (`id_contacto`) REFERENCES `medio_contacto` (`id_contacto`);
 
 --
--- Filtros para la tabla `historial_medico`
---
-ALTER TABLE `historial_medico`
-  ADD CONSTRAINT `historial_medico_ibfk_1` FOREIGN KEY (`id_mascota`) REFERENCES `mascotas` (`id_mascota`),
-  ADD CONSTRAINT `historial_medico_ibfk_2` FOREIGN KEY (`id_servicio`) REFERENCES `servicios` (`id_servicio`);
-
---
 -- Filtros para la tabla `inventario`
 --
 ALTER TABLE `inventario`
   ADD CONSTRAINT `inventario_ibfk_1` FOREIGN KEY (`id_proveedor`) REFERENCES `proveedores` (`id_proveedor`);
 
 --
--- Filtros para la tabla `mascotas`
---
-ALTER TABLE `mascotas`
-  ADD CONSTRAINT `mascotas_ibfk_1` FOREIGN KEY (`id_cliente`) REFERENCES `clientes` (`id_cliente`);
-
---
 -- Filtros para la tabla `pagos`
 --
 ALTER TABLE `pagos`
-  ADD CONSTRAINT `pagos_ibfk_1` FOREIGN KEY (`id_venta`) REFERENCES `ventas` (`id_venta`);
-
---
--- Filtros para la tabla `proveedor_contacto`
---
-ALTER TABLE `proveedor_contacto`
-  ADD CONSTRAINT `proveedor_contacto_ibfk_1` FOREIGN KEY (`id_proveedor`) REFERENCES `proveedores` (`id_proveedor`),
-  ADD CONSTRAINT `proveedor_contacto_ibfk_2` FOREIGN KEY (`id_contacto`) REFERENCES `medio_contacto` (`id_contacto`);
-
---
--- Filtros para la tabla `ventas`
---
-ALTER TABLE `ventas`
-  ADD CONSTRAINT `ventas_ibfk_1` FOREIGN KEY (`id_cliente`) REFERENCES `clientes` (`id_cliente`),
-  ADD CONSTRAINT `ventas_ibfk_2` FOREIGN KEY (`id_producto`) REFERENCES `inventario` (`id_producto`);
-
---
--- Filtros para la tabla `veterinarios`
---
-ALTER TABLE `veterinarios`
-  ADD CONSTRAINT `veterinarios_ibfk_1` FOREIGN KEY (`id_especialidad`) REFERENCES `especialidades` (`id_especialidad`);
+  ADD CONSTRAINT `pagos_ibfk_1` FOREIGN KEY (`id_venta`) REFERENCES `ventas` (`id_venta`) ON DELETE CASCADE;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
