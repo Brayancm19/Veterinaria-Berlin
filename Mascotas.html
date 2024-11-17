@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gestión de Mascotas</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+</head>
+<body>
+
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <a class="navbar-brand" href="#">Veterinaria Berlin</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav">
+                <li class="nav-item">
+                    <a class="nav-link" href="Citas.html">Citas</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="Mascotas.html">Mascotas</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="index.html">Salir</a>
+                </li>
+            </ul>
+        </div>
+    </nav>
+    
+<div class="container mt-5">
+    <h1 class="text-center">Gestión de Mascotas</h1>
+    <button class="btn btn-primary mb-3" data-toggle="modal" data-target="#addMascotaModal">Registrar Nueva Mascota</button>
+    
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Nombre</th>
+                <th>Especie</th>
+                <th>Raza</th>
+                <th>Edad</th>
+                <th>Sexo</th>
+                <th>Dueño</th>
+                <th>Acciones</th>
+            </tr>
+        </thead>
+        <tbody id="mascotasTable">
+            <!-- Datos de mascotas se cargarán aquí -->
+        </tbody>
+    </table>
+</div>
+
+<!-- Modal para registrar nueva mascota -->
+<div class="modal fade" id="addMascotaModal" tabindex="-1" role="dialog" aria-labelledby="addMascotaModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="addMascotaModalLabel">Registrar Nueva Mascota</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form id="addMascotaForm">
+                    <div class="form-group">
+                        <label for="nombreMascota">Nombre</label>
+                        <input type="text" class="form-control" id="nombreMascota" name="nombreMascota" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="especieMascota">Especie</label>
+                        <input type="text" class="form-control" id="especieMascota" name="especieMascota" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="razaMascota">Raza</label>
+                        <input type="text" class="form-control" id="razaMascota" name="razaMascota">
+                    </div>
+                    <div class="form-group">
+                        <label for="edadMascota">Edad</label>
+                        <input type="number" class="form-control" id="edadMascota" name="edadMascota" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="sexoMascota">Sexo</label>
+                        <select class="form-control" id="sexoMascota" name="sexoMascota" required>
+                            <option value="Macho">Macho</option>
+                            <option value="Hembra">Hembra</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="clienteMascota">Dueño</label>
+                        <select class="form-control" id="clienteMascota" name="clienteMascota" required>
+                            <!-- Opciones de clientes se cargarán aquí -->
+                        </select>
+                    </div>
+                    <button type="submit" class="btn btn-primary">Registrar</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Modal para modificar mascota -->
+<div class="modal fade" id="editMascotaModal" tabindex="-1" role="dialog" aria-labelledby="editMascotaModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="editMascotaModalLabel">Modificar Mascota</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form id="editMascotaForm">
+                    <input type="hidden" id="editMascotaId" name="idMascota">
+                    <div class="form-group">
+                        <label for="editNombreMascota">Nombre</label>
+                        <input type="text" class="form-control" id="editNombreMascota" name="nombreMascota" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="editEspecieMascota">Especie</label>
+                        <input type="text" class="form-control" id="editEspecieMascota" name="especieMascota" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="editRazaMascota">Raza</label>
+                        <input type="text" class="form-control" id="editRazaMascota" name="razaMascota">
+                    </div>
+                    <div class="form-group">
+                        <label for="editEdadMascota">Edad</label>
+                        <input type="number" class="form-control" id="editEdadMascota" name="edadMascota" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="editSexoMascota">Sexo</label>
+                        <select class="form-control" id="editSexoMascota" name="sexoMascota" required>
+                            <option value="Macho">Macho</option>
+                            <option value="Hembra">Hembra</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="editClienteMascota">Dueño</label>
+                        <select class="form-control" id="editClienteMascota" name="clienteMascota" required>
+                            <!-- Opciones de clientes se cargarán aquí -->
+                        </select>
+                    </div>
+                    <button type="submit" class="btn btn-primary">Guardar Cambios</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Modal para eliminar mascota -->
+<div class="modal fade" id="deleteMascotaModal" tabindex="-1" role="dialog" aria-labelledby="deleteMascotaModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="deleteMascotaModalLabel">Eliminar Mascota</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <p>¿Estás seguro de que deseas eliminar esta mascota?</p>
+                <form id="deleteMascotaForm">
+                    <input type="hidden" id="deleteMascotaId" name="idMascota">
+                    <button type="submit" class="btn btn-danger">Eliminar</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Modal para ver historial médico -->
+<div class="modal fade" id="historialMascotaModal" tabindex="-1" role="dialog" aria-labelledby="historialMascotaModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="historialMascotaModalLabel">Historial Médico</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <table class="table table-striped">
+                    <thead>
+                        <tr>
+                            <th>Fecha</th>
+                            <th>Servicio</th>
+                            <th>Veterinario</th>
+                        </tr>
+                    </thead>
+                    <tbody id="historialTable">
+                        <!-- Datos del historial médico se cargarán aquí -->
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+<script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.2/dist/js/bootstrap.bundle.min.js"></script>
+<script src="mascotas.js"></script>
+</body>
+</html>   
