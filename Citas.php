@@ -132,12 +132,33 @@ function addCita() {
     $fecha_hora = $_POST['fechaHoraCita'];
     $estado = $_POST['estadoCita'];
 
-    $query = "INSERT INTO Citas (id_cliente, id_mascota, id_servicio, id_veterinario, fecha_hora, estado)
-              VALUES ($id_cliente, $id_mascota, $id_servicio, $id_veterinario, '$fecha_hora', '$estado')";
-    if ($conn->query($query) === TRUE) {
-        echo "Cita agendada correctamente";
-    } else {
-        echo "Error: " . $query . "<br>" . $conn->error;
+    // Iniciar una transacción
+    $conn->begin_transaction();
+
+    try {
+        // Insertar la cita en la tabla `Citas`
+        $queryCita = "INSERT INTO Citas (id_cliente, id_mascota, id_servicio, id_veterinario, fecha_hora, estado)
+                      VALUES ($id_cliente, $id_mascota, $id_servicio, $id_veterinario, '$fecha_hora', '$estado')";
+        $conn->query($queryCita);
+
+        // Obtener el precio del servicio
+        $queryPrecio = "SELECT precio FROM Servicios WHERE id_servicio = $id_servicio";
+        $result = $conn->query($queryPrecio);
+        $precio = $result->fetch_assoc()['precio'];
+
+        // Insertar la venta en la tabla `Ventas`
+        $queryVenta = "INSERT INTO Ventas (id_cliente, id_producto, cantidad, total, fecha_venta)
+                       VALUES ($id_cliente, $id_servicio, 1, $precio, '$fecha_hora')";
+        $conn->query($queryVenta);
+
+        // Confirmar la transacción
+        $conn->commit();
+        
+        echo "Cita agendada y venta registrada correctamente";
+    } catch (Exception $e) {
+        // En caso de error, revertir la transacción
+        $conn->rollback();
+        echo "Error: " . $e->getMessage();
     }
 }
 

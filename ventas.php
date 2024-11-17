@@ -18,10 +18,13 @@ header('Content-Type: application/json');
 
 // Intentar obtener ventas detalladas y capturar cualquier excepción
 try {
-    $sql = "SELECT v.id_venta, c.nombre AS cliente, p.nombre_producto AS producto, v.cantidad, v.total, v.fecha_venta
+    $sql = "SELECT v.id_venta, c.nombre AS cliente, 
+                   IFNULL(p.nombre_producto, s.nombre_servicio) AS producto, 
+                   v.cantidad, v.total, v.fecha_venta
             FROM Ventas v
             LEFT JOIN Clientes c ON v.id_cliente = c.id_cliente
-            LEFT JOIN Inventario p ON v.id_producto = p.id_producto";
+            LEFT JOIN Inventario p ON v.id_producto = p.id_producto
+            LEFT JOIN Servicios s ON v.id_producto = s.id_servicio";
     $result = $conn->query($sql);
 
     $ventas = [];
