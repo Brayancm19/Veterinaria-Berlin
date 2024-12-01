@@ -16,7 +16,7 @@ if ($conn->connect_error) {
 if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['nombreProveedor'])) {
     $nombreProveedor = $_POST['nombreProveedor'];
     $telefonoProveedor = $_POST['telefonoProveedor'];
-    $emailProveedor = $_POST['emailProveedor'];
+
     $direccionProveedor = $_POST['direccionProveedor'];
 
     // Iniciar una transacción

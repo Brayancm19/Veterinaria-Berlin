@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 17-11-2024 a las 20:35:55
+-- Tiempo de generación: 01-12-2024 a las 19:32:39
 -- Versión del servidor: 10.4.32-MariaDB
 -- Versión de PHP: 8.2.12
 
@@ -108,7 +108,13 @@ CREATE TABLE `inventario` (
 --
 
 INSERT INTO `inventario` (`id_producto`, `nombre_producto`, `descripcion`, `cantidad`, `precio_unitario`, `id_proveedor`) VALUES
-(1, 'HYPOALLERGENIC TREATS MARCA: HILLS', 'Deliciosos premios que sirven como complemento para perros con: Reacciones adversas al alimento (alergias o intolerancias alimentarias) Trastornos gastrointestinales (excepto aquellos que requieran un alimento bajo en grasa o alto en fibra) Enfermedades cutáneas 340G', 19, 12900.00, 1);
+(2, 'Simparica	', 'Tratamiento contra garrapatas', 18, 5000.00, 2),
+(3, 'Apoquel', 'Alivio del prurito en perros', 20, 30000.00, 2),
+(4, 'Rimadyl', 'Manejo del dolor en perros', 15, 25000.00, 1),
+(5, 'Convenia', 'Tratamiento de infecciones bacterianas', 10, 40000.00, 4),
+(6, 'Aminolite', 'Suplemento nutricional para aves', 10, 20000.00, 3),
+(7, 'Virbac', 'Soluciones de salud animal', 29, 6000.00, 6),
+(8, 'Vetnia', 'Portal veterinario', 8, 15000.00, 4);
 
 -- --------------------------------------------------------
 
@@ -157,7 +163,17 @@ INSERT INTO `medio_contacto` (`id_contacto`, `tipo_contacto`, `valor_contacto`) 
 (3, 'Telefono', '84292659'),
 (4, 'Email', 'bchacon959@gmail.com'),
 (5, 'Telefono', '8888888'),
-(6, 'Email', 'emma@gmail.com');
+(6, 'Email', 'emma@gmail.com'),
+(7, 'Telefono', '+1 800-999-0297'),
+(8, 'Email', 'contacto@zoetis.com'),
+(9, 'Telefono', '+1 800-243-0127'),
+(10, 'Email', 'vetmedica@boehringer-ingelheim.com'),
+(11, 'Telefono', '+1 877-352-6261'),
+(12, 'Email', 'contacto@elanco.com'),
+(13, 'Telefono', '+1 800-521-5767'),
+(14, 'Email', 'contacto@merck.com'),
+(15, 'Telefono', '+1 800-338-3659'),
+(16, 'Email', 'contacto@virbac.com');
 
 -- --------------------------------------------------------
 
@@ -178,7 +194,8 @@ CREATE TABLE `pagos` (
 --
 
 INSERT INTO `pagos` (`id_pago`, `id_venta`, `metodo_pago`, `fecha_pago`, `monto`) VALUES
-(10, 14, 'Tarjeta', '2024-11-17 13:29:29', 12900.00);
+(11, 15, 'Tarjeta', '2024-12-01 12:31:30', 6000.00),
+(12, 16, 'Tarjeta', '2024-12-01 12:31:30', 10000.00);
 
 -- --------------------------------------------------------
 
@@ -197,7 +214,12 @@ CREATE TABLE `proveedores` (
 --
 
 INSERT INTO `proveedores` (`id_proveedor`, `nombre`, `direccion`) VALUES
-(1, 'Hillspet', 'Costa Rica');
+(1, 'Hillspet', 'Costa Rica'),
+(2, 'Zoetis Inc', '10 Sylvan Way, Parsippany, NJ 07054, USA'),
+(3, 'Boehringer Ingelheim Vetmedica', '900 Ridgebury Road, Ridgefield, CT 06877, USA'),
+(4, 'Elanco Animal Health', '2500 Innovation Way, Greenfield, IN 46140, USA'),
+(5, 'Merck Animal Health', '2 Giralda Farms, Madison, NJ 07940, USA'),
+(6, 'Virbac Corporation', '3200 Meacham Blvd, Fort Worth, TX 76137, USA');
 
 -- --------------------------------------------------------
 
@@ -216,7 +238,17 @@ CREATE TABLE `proveedor_contacto` (
 
 INSERT INTO `proveedor_contacto` (`id_proveedor`, `id_contacto`) VALUES
 (1, 1),
-(1, 2);
+(1, 2),
+(2, 7),
+(2, 8),
+(3, 9),
+(3, 10),
+(4, 11),
+(4, 12),
+(5, 13),
+(5, 14),
+(6, 15),
+(6, 16);
 
 -- --------------------------------------------------------
 
@@ -267,7 +299,8 @@ CREATE TABLE `ventas` (
 --
 
 INSERT INTO `ventas` (`id_venta`, `id_cliente`, `id_producto`, `tipo`, `cantidad`, `total`, `fecha_venta`) VALUES
-(14, 1, 1, NULL, 1, 12900.00, '2024-11-17 13:29:29');
+(15, 1, 7, NULL, 1, 6000.00, '2024-12-01 12:31:30'),
+(16, 1, 2, NULL, 2, 10000.00, '2024-12-01 12:31:30');
 
 -- --------------------------------------------------------
 
@@ -288,8 +321,8 @@ CREATE TABLE `veterinarios` (
 --
 
 INSERT INTO `veterinarios` (`id_veterinario`, `nombre`, `id_especialidad`, `telefono`, `email`) VALUES
-(1, 'Dr. Juan Pérez', 1, '123-456-7890', 'juan.perez@veterinaria.com'),
-(2, 'Dra. María González', 2, '234-567-8901', 'maria.gonzalez@veterinaria.com');
+(1, 'Dr. LUIS GERARDO HERRERA GAMBOA', 1, '8888-8888', 'luis.gerardo.herrera.gamboa@uca.ac.cr'),
+(2, 'Dra. Nicole Paola López Jimenez', 2, '8888-8888', 'nicole.paola.lopez.jimenez@uca.ac.cr');
 
 --
 -- Índices para tablas volcadas
@@ -399,7 +432,7 @@ ALTER TABLE `clientes`
 -- AUTO_INCREMENT de la tabla `inventario`
 --
 ALTER TABLE `inventario`
-  MODIFY `id_producto` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id_producto` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 
 --
 -- AUTO_INCREMENT de la tabla `mascotas`
@@ -411,19 +444,19 @@ ALTER TABLE `mascotas`
 -- AUTO_INCREMENT de la tabla `medio_contacto`
 --
 ALTER TABLE `medio_contacto`
-  MODIFY `id_contacto` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `id_contacto` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=17;
 
 --
 -- AUTO_INCREMENT de la tabla `pagos`
 --
 ALTER TABLE `pagos`
-  MODIFY `id_pago` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
+  MODIFY `id_pago` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
 
 --
 -- AUTO_INCREMENT de la tabla `proveedores`
 --
 ALTER TABLE `proveedores`
-  MODIFY `id_proveedor` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id_proveedor` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
 -- AUTO_INCREMENT de la tabla `servicios`
@@ -435,7 +468,7 @@ ALTER TABLE `servicios`
 -- AUTO_INCREMENT de la tabla `ventas`
 --
 ALTER TABLE `ventas`
-  MODIFY `id_venta` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
+  MODIFY `id_venta` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=17;
 
 --
 -- AUTO_INCREMENT de la tabla `veterinarios`
